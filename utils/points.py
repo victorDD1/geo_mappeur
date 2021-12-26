@@ -1,15 +1,14 @@
-from numpy import linspace
-from utm import from_latlon
+from utils.utm_gps import from_latlon
 
 def lat_long_to_x_y(latitude, longitude):
     if type(latitude) != list:
-        x, y, _, _ = from_latlon(latitude, longitude)
+        x, y = from_latlon(latitude, longitude)
         return x, y
     else :
         x_list = []
         y_list = []
         for lat, lon in zip(latitude, longitude):
-            x, y, _, _ = from_latlon(lat, lon)
+            x, y = from_latlon(lat, lon)
             x_list.append(x)
             y_list.append(y)
         return x_list, y_list
@@ -57,7 +56,9 @@ def define_lines_from_corners(top_left_corner, bottom_rigth_corner, x_res = 50):
         - list(tupple(list)) : [([lat_11, lon_1], [lat_12, lon_1]), ..., ([lat_N1, lon_N], [lat_N2, lon_N])]
     '''
     assert (top_left_corner[0]>bottom_rigth_corner[0] and top_left_corner[1]<bottom_rigth_corner[1]), print('Choose the right points!\n first coordinate <-> top left corner | second coordinate <-> bottom right corner')
-    long_points_list = linspace(top_left_corner[1], bottom_rigth_corner[1], num = x_res)
+    
+    step = abs(bottom_rigth_corner[1] - top_left_corner[1])/(x_res-1)
+    long_points_list = [bottom_rigth_corner[1] + step*i for i in range(x_res)]
 
     lat_top, lat_bottom = top_left_corner[0], bottom_rigth_corner[0]
     pairs_points_list = []

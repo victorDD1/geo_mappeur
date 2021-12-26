@@ -4,7 +4,6 @@ from time import sleep
 from numpy.random import rand
 
 from utils.points import lat_long_to_x_y, define_lines_from_corners, content_to_x_y_z, change_origin, save_points_txt
-from utils.plot import plot_3d_from_txt
 from utils.web_scrapping import request_elevation_line_from_2_points, get_long_lat_z
 
 def main(args):
