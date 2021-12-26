@@ -14,7 +14,7 @@ A text file is written in `./data` containing the points of the elevation map. T
 
 ### Usage
 
-This program can be run using **python script** or a **compiled windows executable** that doesn't require a python installation.
+This program can be run using a **python script** or a **compiled windows executable** that doesn't require a python installation.
 
 The considered area is rectangular, selected from its top-left corner and its bottom-right corner. Latitude and longitude of both pionts are needed. I recommand using [Géoportail](#https://www.geoportail.gouv.fr/ "Géoportail website") to find these geographical coordinates.
 
