@@ -19,7 +19,7 @@ This program can be run using a **python script** or a **compiled windows execut
 The considered area is rectangular, selected from its top-left corner and its bottom-right corner. Latitude and longitude of both pionts are needed. I recommand using [Géoportail](#https://www.geoportail.gouv.fr/ "Géoportail website") to find these geographical coordinates.
 
 ![How to find coordinate on Géoportail](/img/README_1.png "How to find coordinate on Géoportail")
-#### Python Script
+#### Python script
 
 *Arguments*
 ```
@@ -34,7 +34,7 @@ The considered area is rectangular, selected from its top-left corner and its bo
 
 *Command*
 
-Elevation maps of Paris and its surrounding area.
+Elevation map of Paris and its surrounding area.
 100x100 data points saved at `paris_map.txt`
 
 `python elevation_map.py -a 48.900000 2.235000 -b 48.800000 2.455000 -x_res 100 y_res 100 -fn paris_map`
@@ -53,7 +53,7 @@ Elevation maps of Paris and its surrounding area.
 
 *Command*
 
-Elevation maps of Paris and its surrounding area.
+Elevation map of Paris and its surrounding area.
 100x100 data points saved at `paris_map.txt`
 
 Open `cmd` on Windows.
