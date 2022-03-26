@@ -6,7 +6,11 @@ from numpy.random import rand
 from utils.points import lat_long_to_x_y, define_lines_from_corners, content_to_x_y_z, change_origin, save_points_txt
 from utils.web_scrapping import request_elevation_line_from_2_points, get_long_lat_z
 
-def main(args):
+def main(top_left_corner,
+         bottom_right_corner,
+         number_points_x,
+         number_points_y,
+         file_name):
     
     x_list, y_list, z_list = [], [], []
 
@@ -14,24 +18,24 @@ def main(args):
     if not(os.path.exists('./data')):
         os.mkdir('./data')
 
-    if args.file_name == '':
-        x_1, y_1 = args.top_left_corner
-        x_2, y_2 = args.bottom_right_corner
+    if file_name == '':
+        x_1, y_1 = top_left_corner
+        x_2, y_2 = bottom_right_corner
         file_path = f'./data/lon_{x_1}-{x_2}_lat_{y_1}-{y_2}_data.txt'
     else : 
-        file_path = os.path.join('data', args.file_name + '.txt')
+        file_path = os.path.join('data', file_name + '.txt')
     # Remove if exists
     if os.path.exists(file_path):
         os.remove(file_path)
 
-    x_0, _ = lat_long_to_x_y(args.top_left_corner[0], args.top_left_corner[1])
-    _, y_0 = lat_long_to_x_y(args.bottom_right_corner[0], args.bottom_right_corner[1])
+    x_0, _ = lat_long_to_x_y(top_left_corner[0], top_left_corner[1])
+    _, y_0 = lat_long_to_x_y(bottom_right_corner[0], bottom_right_corner[1])
     
-    pairs_points_list = define_lines_from_corners(args.top_left_corner, args.bottom_right_corner, args.number_points_x)
+    pairs_points_list = define_lines_from_corners(top_left_corner, bottom_right_corner, number_points_x)
 
     # Get points coordinates for each elevation lines (corresponding to each pair of points)
     for pair_points in pairs_points_list:
-        http_request = request_elevation_line_from_2_points(pair_points[0], pair_points[1], args.number_points_y)
+        http_request = request_elevation_line_from_2_points(pair_points[0], pair_points[1], number_points_y)
         data_content = get_long_lat_z(http_request)
         x_tmp_list, y_tmp_list, z_tmp_list = content_to_x_y_z(data_content)
 
@@ -56,4 +60,8 @@ if __name__ == '__main__':
     parser.add_argument('-fn', '--file_name', help="Name of the data .txt file", type=str, default='')
     args = parser.parse_args()
 
-    main(args)
+    main(args.top_left_corner,
+         args.bottom_right_corner,
+         args.number_points_x,
+         args.number_points_y,
+         args.file_name,)
